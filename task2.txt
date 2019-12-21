@@ -1,0 +1,5 @@
+{"Book":"Eloquent JavaScript, 3rd Edition: A Modern Introduction to Programming","Author":"Marijn Haverbeke","Amount":"5","Price":"26.23"}
+{"Book":"JavaScript: The Good Parts","Author":"Douglas Crockford","Amount":"4","Price":"17.59"}
+{"Book":"You Don't Know JS: Async & Performance","Author":"Kyle Simpson","Amount":"12","Price":"21.38"}
+{"Book":"You Don't Know JS: Scope & Closures","Author":"Kyle Simpson","Amount":"9","Price":"16.72"}
+{"Book":"JavaScript: The Definitive Guide: Activate Your Web Pages (Definitive Guides)","Author":"David Flanagan","Amount":"15","Price":"33.99"}

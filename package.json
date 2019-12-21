@@ -1,0 +1,31 @@
+{
+  "name": "nodejsprogramm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "task1": "nodemon --exec babel-node --es-module-specifier-resolution=node --experimental-modules task1.mjs",
+    "task2": "nodemon --experimental-modules --es-module-specifier-resolution=node --exec babel-node task2.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksatsura/NodeJSProgramm.git"
+  },
+  "author": "Katsiaryna Satsura",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ksatsura/NodeJSProgramm/issues"
+  },
+  "homepage": "https://github.com/ksatsura/NodeJSProgramm#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.5",
+    "nodemon": "^2.0.1"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  }
+}
