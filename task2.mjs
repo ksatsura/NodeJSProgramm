@@ -15,9 +15,9 @@ const readInterface = readline.createInterface({
   terminal: false
 });
 
-function parseLinetoJsonObj (line) {
+function parseLinetoJsonObj(line) {
   lineNumber = lineNumber + 1;
- 
+
   if (lineNumber === 1) {
     headerLine = line;
 
@@ -31,13 +31,11 @@ function parseLinetoJsonObj (line) {
     .subscribe((jsonObj) => {
       wStream.write(JSON.stringify(jsonObj) + '\n');
     })
-    .on('error', (error) => console.log('Error at parsing line to JSON object: ', error) );
-};
+    .on('error', (error) => console.log('Error at parsing line to JSON object: ', error));
+}
 
-rStream.on('error', (error) => console.log('Error at reading data from csv file: ', error) );
+rStream.on('error', (error) => console.log('Error at reading data from csv file: ', error));
 
-wStream.on('error', (error) => console.log('Error at writing data to .txt file: ', error) );
+wStream.on('error', (error) => console.log('Error at writing data to .txt file: ', error));
 
-readInterface.on('line', function(line) {
-  parseLinetoJsonObj(line);
-});
+readInterface.on('line', (line) => parseLinetoJsonObj(line));
