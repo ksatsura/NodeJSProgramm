@@ -155,7 +155,7 @@
       "no-delete-var": 2,
       "no-label-var": 2,
       "no-shadow-restricted-names": 2,
-      "no-shadow": 2,
+      "no-shadow": 0,
       "no-undef-init": 2,
       "no-undef": 2,
       "no-unused-vars": 2,
@@ -163,7 +163,7 @@
       "no-mixed-requires": 2,
       "no-path-concat": 2,
       "no-sync": 2,
-      "handle-callback-err": 1,
+      "handle-callback-err": 0,
       "no-new-require": 2,
       "array-bracket-spacing": [
         2,
