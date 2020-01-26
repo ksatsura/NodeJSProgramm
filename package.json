@@ -7,6 +7,7 @@
   "scripts": {
     "task1": "nodemon --exec babel-node --es-module-specifier-resolution=node --experimental-modules task1.mjs",
     "task2": "nodemon --experimental-modules --es-module-specifier-resolution=node --exec babel-node task2.mjs",
+    "task21": "nodemon --experimental-modules --es-module-specifier-resolution=node --exec babel-node task21.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +27,10 @@
     "nodemon": "^2.0.1"
   },
   "dependencies": {
-    "csvtojson": "^2.0.10"
+    "@hapi/joi": "^16.1.8",
+    "csvtojson": "^2.0.10",
+    "express": "^4.17.1",
+    "express-joi-validation": "^4.0.3",
+    "uuid": "^3.3.3"
   }
 }
