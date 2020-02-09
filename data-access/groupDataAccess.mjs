@@ -1,10 +1,10 @@
 import pg from 'pg';
-import { usersInitialList } from '../config';
-import { getUserQuery } from '../helpers/userHelpers';
+import { groupsInitialList } from '../config';
+import { getGroupQuery } from '../helpers/groupHelpers';
 
 const { Pool } = pg;
 
-export const userTableInit = () => {
+export const groupTableInit = () => {
   const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
@@ -29,19 +29,19 @@ export const userTableInit = () => {
 
     client.query('BEGIN', err => {
       if (shouldAbort(err)) return;
-      const queryText = 'CREATE TABLE IF NOT EXISTS Users(id UUID PRIMARY KEY, login TEXT NOT NULL, password TEXT NOT NULL, age INTEGER NOT NULL, is_deleted BOOLEAN NOT NULL)';
+      const queryTextForGroup = 'CREATE TABLE IF NOT EXISTS Groups(id UUID PRIMARY KEY, name TEXT NOT NULL, permissions TEXT[] NOT NULL)';
 
-      client.query(queryText, (err) => {
+      client.query(queryTextForGroup, (err) => {
         if (shouldAbort(err)) {
           return;
         }
-        console.log('New table Users was created');
-        usersInitialList.forEach((user, index) => {
-          client.query(getUserQuery(user), (err) => {
+        console.log('New table Groups was created');
+        groupsInitialList.forEach((group, index) => {
+          client.query(getGroupQuery(group), (err) => {
             if (shouldAbort(err)) {
               return;
             }
-            console.log(`New row was inserted into the table Users: ${index}`);
+            console.log(`New row was inserted into the table Groups: ${index}`);
           });
         });
 
