@@ -9,3 +9,13 @@ export const usersInitialList = [
   { id: getNewId(), login: 'user6', password: 'password6', age: 23, is_deleted: false },
   { id: getNewId(), login: 'user7', password: 'password7', age: 24, is_deleted: false }
 ];
+
+export const permissions = ['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES'];
+
+export const groupsInitialList = [
+  { id: getNewId(), name: 'group1', permissions: ['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES'] },
+  { id: getNewId(), name: 'group2', permissions: ['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES'] },
+  { id: getNewId(), name: 'group3', permissions: ['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES'] },
+  { id: getNewId(), name: 'group4', permissions: ['READ', 'WRITE', 'DELETE', 'SHARE', 'UPLOAD_FILES'] }
+];
+

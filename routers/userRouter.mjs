@@ -5,15 +5,16 @@ import UserService from '../services/UserService';
 import ValidationService from '../services/ValidationService';
 import User from '../models/User';
 
-export const router = express.Router();
+export const userRouter = express.Router();
 
 const sequelize = new Sequelize('postgres://postgres:P0stgress_user@localhost/DB');
 User.init(sequelize);
+
 const userService = new UserService(User);
 const validationService = new ValidationService();
 
 
-router.get('/:id', (req, res) => {
+userRouter.get('/:id', (req, res) => {
   const id = req.params.id;
 
   sequelize.sync().then(() => {
@@ -29,7 +30,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.get('/', validationService.validateQueryParams(), (req, res) => {
+userRouter.get('/', validationService.validateQueryParams(), (req, res) => {
   const loginSubstr = req.query.loginSubstr;
   const limit = req.query.limit;
 
@@ -46,7 +47,7 @@ router.get('/', validationService.validateQueryParams(), (req, res) => {
   });
 });
 
-router.post('/', validationService.validateBody(), (req, res) => {
+userRouter.post('/', validationService.validateBody(), (req, res) => {
   sequelize.sync().then(() => {
     userService.createUser(req.body)
       .then(user => res.status(201).json({
@@ -57,7 +58,7 @@ router.post('/', validationService.validateBody(), (req, res) => {
   });
 });
 
-router.delete('/:id', (req, res) => {
+userRouter.delete('/:id', (req, res) => {
   const id = req.params.id;
 
   sequelize.sync().then(() => {
@@ -74,7 +75,7 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-router.put('/:id',
+userRouter.put('/:id',
   validationService.validateBody(),
   validationService.validateParams(),
   (req, res) => {
