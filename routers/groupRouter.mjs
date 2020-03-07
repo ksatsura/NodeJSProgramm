@@ -23,42 +23,48 @@ const groupService = new GroupService(Group, User);
 const groupValidationService = new GroupValidationService();
 
 
-groupRouter.get('/:id', (req, res) => {
+groupRouter.get('/:id', (req, res, next) => {
   const id = req.params.id;
 
   groupService.getGroup(id)
     .then(group => res.json(group))
     .catch(err => {
-      if (err.status) {
-        res.status(err.status).json({ message: err.message });
-      } else {
-        res.status(500).json({ message: err.message });
-      }
+      console.error('Method: ', req.method);
+      console.error('req.params.id: ', req.params.id);
+      console.error('error: ', err.message);
+
+      next(err);
     });
 });
 
-groupRouter.get('/', (req, res) => {
+groupRouter.get('/', (req, res, next) => {
   groupService.getAllGroups()
     .then(allGroups => res.json(allGroups))
     .catch(err => {
-      if (err.status) {
-        res.status(err.status).json({ message: err.message });
-      } else {
-        res.status(500).json({ message: err.message });
-      }
+      console.error('Method: ', req.method);
+      console.error('req.body: ', JSON.stringify(req.body));
+      console.error('error: ', err.message);
+
+      next(err);
     });
 });
 
-groupRouter.post('/', groupValidationService.validateBody(), (req, res) => {
+groupRouter.post('/', groupValidationService.validateBody(), (req, res, next) => {
   groupService.createGroup(req.body)
     .then(group => res.status(201).json({
       message: `The group #${group.id} has been created`,
       content: group
     }))
-    .catch(err => res.status(500).json({ message: err.message }));
+    .catch(err => {
+      console.error('Method: ', req.method);
+      console.error('req.body: ', JSON.stringify(req.body));
+      console.error('error: ', err.message);
+
+      next(err);
+    });
 });
 
-groupRouter.delete('/:id', (req, res) => {
+groupRouter.delete('/:id', (req, res, next) => {
   const id = req.params.id;
 
   groupService.deleteGroup(id)
@@ -66,17 +72,18 @@ groupRouter.delete('/:id', (req, res) => {
       message: `The group #${id} has been deleted`
     }))
     .catch(err => {
-      if (err.status) {
-        res.status(err.status).json({ message: err.message });
-      }
-      res.status(500).json({ message: err.message });
+      console.error('Method: ', req.method);
+      console.error('req.params.id: ', req.params.id);
+      console.error('error: ', err.message);
+
+      next(err);
     });
 });
 
 groupRouter.put('/:id',
   groupValidationService.validateBody(),
   groupValidationService.validateParams(),
-  (req, res) => {
+  (req, res, next) => {
     const id = req.params.id;
 
     groupService.updateGroup(id, req.body)
@@ -85,17 +92,19 @@ groupRouter.put('/:id',
         content: group
       }))
       .catch(err => {
-        if (err.status) {
-          res.status(err.status).json({ message: err.message });
-        }
-        res.status(500).json({ message: err.message });
+        console.error('Method: ', req.method);
+        console.error('req.params.id: ', req.params.id);
+        console.error('req.body', JSON.stringify(req.body));
+        console.error('error: ', err.message);
+
+        next(err);
       });
   });
 
 groupRouter.post('/:id',
   groupValidationService.validateParams(),
   groupValidationService.validateQueryParams(),
-  (req, res) => {
+  (req, res, next) => {
     const userIds = req.query.userId;
     const groupId = req.params.id;
 
@@ -107,7 +116,13 @@ groupRouter.post('/:id',
         }))
         .then(() => t.commit())
         .catch((err) => {
-          res.status(500).json({ message: err.message });
+          console.error('Method: ', req.method);
+          console.error('req.query.userId: ', req.query.userId);
+          console.error('req.params.id', req.params.id);
+          console.error('error: ', err.message);
+
+          next(err);
+
           return t.rollback();
         });
     });
