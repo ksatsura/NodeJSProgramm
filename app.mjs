@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import fs from 'fs';
+import cors from 'cors';
 
 import { groupTableInit } from './data-access/groupDataAccess';
 import { userTableInit } from './data-access/userDataAccess';
@@ -41,5 +42,7 @@ process
     console.error(err, 'Uncaught Exception thrown');
     process.exit(1);
   });
+
+app.use(cors());
 
 app.listen(3000);
