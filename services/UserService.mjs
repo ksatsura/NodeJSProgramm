@@ -44,8 +44,16 @@ export default class UserService {
       });
   }
 
-  getUser(userId) {
+  getUserById(userId) {
     return this.userModel.findOne({ where: { id: userId } })
+      .then((affectedRow) => affectedRow)
+      .catch(error => {
+        throw error;
+      });
+  }
+
+  getUserByLogin(userLogin) {
+    return this.userModel.findOne({ where: { login: userLogin } })
       .then((affectedRow) => affectedRow)
       .catch(error => {
         throw error;

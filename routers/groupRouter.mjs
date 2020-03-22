@@ -7,6 +7,8 @@ import Group from '../models/Group';
 import User from '../models/User';
 import UserGroup from '../models/UserGroup';
 
+import { checkToken } from '../helpers/authorizationHelpers';
+
 export const groupRouter = express.Router();
 
 const sequelize = new Sequelize('postgres://postgres:P0stgress_user@localhost/DB');
@@ -23,7 +25,7 @@ const groupService = new GroupService(Group, User);
 const groupValidationService = new GroupValidationService();
 
 
-groupRouter.get('/:id', (req, res, next) => {
+groupRouter.get('/:id', checkToken, (req, res, next) => {
   const id = req.params.id;
 
   groupService.getGroup(id)
@@ -37,7 +39,7 @@ groupRouter.get('/:id', (req, res, next) => {
     });
 });
 
-groupRouter.get('/', (req, res, next) => {
+groupRouter.get('/', checkToken, (req, res, next) => {
   groupService.getAllGroups()
     .then(allGroups => res.json(allGroups))
     .catch(err => {
@@ -49,7 +51,7 @@ groupRouter.get('/', (req, res, next) => {
     });
 });
 
-groupRouter.post('/', groupValidationService.validateBody(), (req, res, next) => {
+groupRouter.post('/', checkToken, groupValidationService.validateBody(), (req, res, next) => {
   groupService.createGroup(req.body)
     .then(group => res.status(201).json({
       message: `The group #${group.id} has been created`,
@@ -64,7 +66,7 @@ groupRouter.post('/', groupValidationService.validateBody(), (req, res, next) =>
     });
 });
 
-groupRouter.delete('/:id', (req, res, next) => {
+groupRouter.delete('/:id', checkToken, (req, res, next) => {
   const id = req.params.id;
 
   groupService.deleteGroup(id)
@@ -83,6 +85,7 @@ groupRouter.delete('/:id', (req, res, next) => {
 groupRouter.put('/:id',
   groupValidationService.validateBody(),
   groupValidationService.validateParams(),
+  checkToken,
   (req, res, next) => {
     const id = req.params.id;
 
@@ -104,6 +107,7 @@ groupRouter.put('/:id',
 groupRouter.post('/:id',
   groupValidationService.validateParams(),
   groupValidationService.validateQueryParams(),
+  checkToken,
   (req, res, next) => {
     const userIds = req.query.userId;
     const groupId = req.params.id;
