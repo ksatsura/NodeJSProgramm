@@ -27,7 +27,7 @@ export default class GroupService {
   }
 
   updateGroup(groupId, newGroup) {
-    return this.groupModel.update({ ...newGroup }, { where: { id: groupId } })
+    return this.groupModel.update({ ...newGroup }, { returning: true, where: { id: groupId } })
       .then(affectedRow => affectedRow)
       .catch(error => {
         throw error;

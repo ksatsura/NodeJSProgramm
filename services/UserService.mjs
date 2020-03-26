@@ -29,7 +29,7 @@ export default class UserService {
   }
 
   updateUser(userId, newUser) {
-    return this.userModel.update({ ...newUser }, { where: { id: userId } })
+    return this.userModel.update({ ...newUser }, { returning: true, where: { id: userId } })
       .then((affectedRow) => affectedRow)
       .catch(error => {
         throw error;

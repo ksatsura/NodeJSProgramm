@@ -6,11 +6,11 @@ const { Pool } = pg;
 
 export const userTableInit = () => {
   const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'DB',
-    password: 'P0stgress_user',
-    port: '5432'
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT
   });
 
   pool.connect((err, client, done) => {
