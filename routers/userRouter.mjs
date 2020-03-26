@@ -11,6 +11,7 @@ import { checkToken } from '../helpers/authorizationHelpers';
 export const userRouter = express.Router();
 
 const sequelize = new Sequelize('postgres://postgres:P0stgress_user@localhost/DB');
+
 User.init(sequelize);
 
 const userService = new UserService(User);
@@ -47,7 +48,7 @@ userRouter.get('/:id', checkToken, (req, res, next) => {
   const id = req.params.id;
 
   userService.getUserById(id)
-    .then(user => res.json(user))
+    .then(user => !!user ? res.json(user) : res.status(404).send(`The user with ${id} does not exist`))
     .catch(err => {
       console.error('Method: ', req.method);
       console.error('req.params.id: ', req.params.id);
@@ -119,10 +120,10 @@ userRouter.put('/:id',
     const id = req.params.id;
 
     userService.updateUser(id, req.body)
-      .then(user => res.json({
+      .then(user => user[1][0] ? res.json({
         message: `The user #${id} has been updated`,
-        content: user
-      }))
+        content: user[1][0]
+      }) : res.status(404).send(`The user with ${id} does not exist`))
       .catch(err => {
         console.error('Method: ', req.method);
         console.error('req.params.id: ', req.params.id);

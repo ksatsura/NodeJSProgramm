@@ -2,11 +2,13 @@ import express from 'express';
 import morgan from 'morgan';
 import fs from 'fs';
 import cors from 'cors';
+import {} from 'dotenv/config';
 
 import { groupTableInit } from './data-access/groupDataAccess';
 import { userTableInit } from './data-access/userDataAccess';
 import { userRouter } from './routers/userRouter';
 import { groupRouter } from './routers/groupRouter';
+
 
 const app = express();
 

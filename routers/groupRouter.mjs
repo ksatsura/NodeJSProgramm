@@ -29,7 +29,7 @@ groupRouter.get('/:id', checkToken, (req, res, next) => {
   const id = req.params.id;
 
   groupService.getGroup(id)
-    .then(group => res.json(group))
+    .then(group => !!group ? res.json(group) : res.status(404).send(`The group with ${id} does not exist`))
     .catch(err => {
       console.error('Method: ', req.method);
       console.error('req.params.id: ', req.params.id);
@@ -90,10 +90,10 @@ groupRouter.put('/:id',
     const id = req.params.id;
 
     groupService.updateGroup(id, req.body)
-      .then(group => res.json({
+      .then(group => group[1][0] ? res.json({
         message: `The group #${id} has been updated`,
-        content: group
-      }))
+        content: group[1][0]
+      }) : res.status(404).send(`The user with ${id} does not exist`))
       .catch(err => {
         console.error('Method: ', req.method);
         console.error('req.params.id: ', req.params.id);

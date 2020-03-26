@@ -8,7 +8,7 @@
     "task1": "nodemon --exec babel-node --es-module-specifier-resolution=node --experimental-modules task1.mjs",
     "task2": "nodemon --experimental-modules --es-module-specifier-resolution=node --exec babel-node task2.mjs",
     "server": "nodemon --experimental-modules --es-module-specifier-resolution=node --exec babel-node app.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -23,13 +23,23 @@
   "devDependencies": {
     "@babel/core": "^7.7.5",
     "@babel/node": "^7.7.4",
-    "@babel/preset-env": "^7.7.5",
-    "nodemon": "^2.0.1"
+    "@babel/preset-env": "^7.9.0",
+    "@babel/register": "^7.9.0",
+    "babel-jest": "^25.1.0",
+    "babel-plugin-transform-default-import": "^1.0.0",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.1",
+    "proxyquire": "^2.1.3",
+    "rewiremock": "^3.13.9",
+    "sinon": "^9.0.1",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "@hapi/joi": "^16.1.8",
+    "core-js": "^3.6.4",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
+    "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-joi-validation": "^4.0.3",
@@ -37,6 +47,7 @@
     "morgan": "^1.9.1",
     "pg": "^7.17.1",
     "pg-hstore": "^2.3.3",
+    "regenerator-runtime": "^0.13.5",
     "sequelize": "^5.21.3",
     "uuid": "^3.3.3"
   }
